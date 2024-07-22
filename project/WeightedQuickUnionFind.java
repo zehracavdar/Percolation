@@ -18,8 +18,8 @@ public class WeightedQuickUnionFind {
     }
 
 
-     //unions roots of two elements based on their size.
-     //the element's root with a less size will be the child of the other specified element.
+    //unions roots of two elements based on their size.
+    //the element's root with a less size will be the child of the other specified element.
 
     public void union(int p, int q) {
 
