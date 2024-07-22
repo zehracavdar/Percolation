@@ -32,7 +32,7 @@ public class Percolation {
     }
 
 
-     //opening a site in the grid and union them in case of necessity
+     //opens a site in the grid and union them if necessary
 
     public void open(int row, int column) {
 
@@ -41,40 +41,40 @@ public class Percolation {
 
         grid[row][column] = true;
 
-        // if the site is at the top, connects it to the virtual top.
+        //if the site is at the top, connects it to the virtual top.
         if (row == 0) {
             QUFind.union(virtualTop, convertToIndex(row, column));
 
             trackline.union(virtualTop, convertToIndex(row, column));
         }
 
-        // if the site is at the bottom, connects it to the virtual bottom.
+        //if the site is at the bottom, connects it to the virtual bottom.
         if (row == gridSize - 1) {
             QUFind.union(virtualBottom, convertToIndex(row, column));
         }
 
-        // checking the left site
+        //checking the left site
         if (column - 1 >= 0 && isOpen(row, column - 1)) {
             QUFind.union(convertToIndex(row, column), convertToIndex(row, column - 1));
 
             trackline.union(convertToIndex(row, column), convertToIndex(row, column - 1));
         }
 
-        // checking the right site
+        //checking the right site
         if (column + 1 < gridSize && isOpen(row, column + 1)) {
             QUFind.union(convertToIndex(row, column), convertToIndex(row, column + 1));
 
             trackline.union(convertToIndex(row, column), convertToIndex(row, column + 1));
         }
 
-        // checking the site above
+        //checking the site above
         if (row - 1 >= 0 && isOpen(row - 1, column)) {
             QUFind.union(convertToIndex(row, column), convertToIndex(row - 1, column));
 
             trackline.union(convertToIndex(row, column), convertToIndex(row - 1, column));
         }
 
-        // checking the site below
+        //checking the site below
         if (row + 1 < gridSize && isOpen(row + 1, column)) {
             QUFind.union(convertToIndex(row, column), convertToIndex(row + 1, column));
 
@@ -93,18 +93,17 @@ public class Percolation {
                 }
             }
         }
-
     }
 
 
-     //checking if the system percolates
+    //checking if the system percolates
 
     public boolean percolationCheck() {
         return QUFind.find(virtualTop) == QUFind.find(virtualBottom);
     }
 
 
-     // displaying the grid using StdDraw
+    //displaying the grid using StdDraw
 
     public void displayGrid() {
         StdDraw.setPenColor(StdDraw.BLACK);
@@ -138,29 +137,29 @@ public class Percolation {
     }
 
 
-     //checking if the site is open by checking its boolean value in the grid.
+    //checking if the site is open by checking its boolean value in the grid.
 
     private boolean isOpen(int row, int column) {
         return grid[row][column];
     }
 
 
-     // checking if the site is connected with top by checking if they have the same root
-     //this method is used to determine which sites are connected with top showing
-     //that the liquid would percolate to the connected sites.
+    //checking if the site is connected with top by checking if they have the same root
+    //this method is used to determine which sites are connected with top
+    //showing that the liquid would percolate to the connected sites.
 
     private boolean isConnectedWithTop(int row, int column) {
         return trackline.find(convertToIndex(row, column)) == trackline.find(virtualTop);
     }
 
 
-    //  MAIN METHOD
+    //---- MAIN METHOD ----
 
     public static void main(String[] args) {
 
-        //in main method, here written 10 cases. we will see if they percolate
-        //with given open sites.
-        //they will come to screen respectively below
+        //in main method, here, written 10 cases. 
+        //we will see if they percolate with given open sites.
+        //they will come to screen respectively below:
 
         // TestCase1
         Percolation p1 = new Percolation(10);
